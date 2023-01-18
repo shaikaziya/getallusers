@@ -1,23 +1,43 @@
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect } from "react";
+import "./App.css";
+import { useSelector, useDispatch } from "react-redux";
+import { asyncGetUsers, asyncRemoveUser } from "./actions/getUserAction";
 function App() {
+  const dispatch = useDispatch();
+
+  const users = useSelector((state) => {
+    return state.users;
+  });
+  console.log(users);
+  // useEffect(() => {});
+
+  const handleChange = (type, id) => {
+    console.log({ type });
+    if (type === "GET_USERS") dispatch(asyncGetUsers());
+    if (id && type === "REMOVE_USERS") dispatch(asyncRemoveUser(id));
+  };
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button
+        onClick={() => {
+          handleChange("GET_USERS");
+        }}
+      >
+        Click here
+      </button>
+      {users.map((ele) => {
+        return (
+          <li>
+            {ele.name}
+            {ele.email}
+            <button onClick={() => handleChange("REMOVE_USERS", ele.id)}>
+              Delete
+            </button>
+          </li>
+        );
+      })}
+      {/* <button onClick={()=>{dispatch(asyncRemoveUser(ele.id))}}>Delete</button> */}
     </div>
   );
 }
