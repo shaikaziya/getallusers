@@ -15,6 +15,8 @@ import {
   asyncCreateUser,
 } from "./actions/getUserAction";
 
+
+
 function App() {
   const dispatch = useDispatch();
 
@@ -70,9 +72,37 @@ function App() {
     setUser(data);
     handleClickOpen();
   };
+
+  const styles={
+
+    marginRight:"30px"
+
+  }
   
   return (
     <div className="App">
+
+<form>
+        <TextField
+          label="Enter name"
+          variant="standard"
+          value={newUser?.name}
+          onChange={(e) => handleChange('userName', e)}
+          style={styles}
+        /> 
+        
+
+
+
+        <TextField
+          label="Enter email"
+          variant="standard"
+          value={newUser?.email}
+          onChange={(e) => handleChange('email', e)}
+          style={styles}
+        />
+        <Button onClick={() => handleClick("CREATE_USERS")}>Add User</Button><br></br>
+      </form>
       {users.map((ele) => {
         return (
           <li key={ele.id}>
@@ -120,21 +150,7 @@ function App() {
         </DialogContent>
       </Dialog>
 
-      <form>
-        <TextField
-          label="Enter name"
-          variant="standard"
-          value={newUser?.name}
-          onChange={(e) => handleChange('userName', e)}
-        />
-        <TextField
-          label="Enter email"
-          variant="standard"
-          value={newUser?.email}
-          onChange={(e) => handleChange('email', e)}
-        />
-        <Button onClick={() => handleClick("CREATE_USERS")}>Add User</Button>
-      </form>
+     
     </div>
   );
 }
