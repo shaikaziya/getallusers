@@ -99,7 +99,6 @@ function App() {
           variant="standard"
           value={newUser?.email}
           onChange={(e) => handleChange('email', e)}
-          style={styles}
         />
         <Button onClick={() => handleClick("CREATE_USERS")}>Add User</Button><br></br>
       </form>
