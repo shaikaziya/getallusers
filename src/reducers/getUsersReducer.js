@@ -1,3 +1,5 @@
+
+
 const userInitialState=[]
 
 const userReducer=((state=userInitialState,action)=>{
@@ -10,7 +12,15 @@ const userReducer=((state=userInitialState,action)=>{
             return state.filter((ele) => {
                 return ele.id !== action.payload.id
             })
-        
+        case "EDIT_USERS":
+            return state.map((ele)=>{
+                if(ele.id === action.payload.id){
+                    return {...ele, ...action.payload}
+                }
+                else{
+                    return ele
+                }
+            })
        
         default : {
             return [...state]
