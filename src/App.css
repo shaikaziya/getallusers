@@ -36,3 +36,31 @@
     transform: rotate(360deg);
   }
 }
+.table{
+  margin-top: 40px;
+  margin-right:10px;
+  margin-left: 350px;
+  width:500px
+ }
+ /* .form{
+  margin-top: 10px;
+  margin-right:10px;
+  margin-left: 350px;
+  border:10px solid black;
+  width:500px;
+  box-shadow: 10px 10px 5px lightblue inset;
+ } */
+ .form{
+  
+  display:flex;
+  justify-content: center;
+  margin-top: 10px;
+  margin-left: 250px;
+  margin-right:250px;
+  border:10px solid #6E9997;
+  box-shadow: 10px 10px 5px #CAD1D1 inset;
+  align-items: baseline;
+ }
+ #addUser{
+  margin-top: 10px;
+ }

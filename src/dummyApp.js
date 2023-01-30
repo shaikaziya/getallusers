@@ -14,27 +14,22 @@ import {
   asyncEditUser,
   asyncCreateUser,
 } from "./actions/getUserAction";
-import Table from "@mui/material/Table";
-import TableBody from "@mui/material/TableBody";
-import TableCell from "@mui/material/TableCell";
-import TableContainer from "@mui/material/TableContainer";
-import TableHead from "@mui/material/TableHead";
-import TableRow from "@mui/material/TableRow";
-import Paper from "@mui/material/Paper";
-import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
-import ModeEditIcon from '@mui/icons-material/ModeEdit';
+
+
+
 function App() {
   const dispatch = useDispatch();
 
   const [show, setShow] = useState(false);
   const [user, setUser] = useState(null);
 
-  const [newUser, setNewUser] = useState({ name: "", email: "" });
+  const [newUser, setNewUser] = useState({name: '', email: ''});
 
-  // Get users
+
+  // Get users 
   useEffect(() => {
-    dispatch(asyncGetUsers());
-  }, []);
+    dispatch(asyncGetUsers())
+  },[])
 
   const users = useSelector((state) => {
     return state.users;
@@ -48,24 +43,27 @@ function App() {
     setShow(false);
   };
 
+
   // handling text field inputs
-  const handleChange = (field, e) => {
-    const { value } = e.target;
-    if (field === "userName") {
-      setNewUser({ ...newUser, name: value });
-    } else if (field === "email") {
-      setNewUser({ ...newUser, email: value });
+  const handleChange= (field, e) => {
+    const { value } = e.target
+    if(field === 'userName'){
+      setNewUser({...newUser, name: value})
+    } else if(field ==='email'){
+      setNewUser({...newUser, email: value})
     }
-  };
+  }
+
 
   const handleClick = (type, id, payload) => {
     if (id && type === "REMOVE_USERS") dispatch(asyncRemoveUser(id));
     if (id && type === "EDIT_USERS")
       dispatch(asyncEditUser(payload, handleClose));
-    if (type === "CREATE_USERS") {
-      dispatch(asyncCreateUser(newUser));
-      setNewUser({ name: "", email: "" });
-    }
+    if (type === "CREATE_USERS"){
+      dispatch(asyncCreateUser(newUser))
+      setNewUser({name: '', email: ''})
+    } 
+
   };
 
   const handleEdit = (id) => {
@@ -75,67 +73,48 @@ function App() {
     handleClickOpen();
   };
 
-  const styles = {
-    marginRight: "30px",
-  };
- 
+  const styles={
 
+    marginRight:"30px"
+
+  }
+  
   return (
     <div className="App">
-      <div className="form">
-      <form>
+
+<form>
         <TextField
           label="Enter name"
           variant="standard"
           value={newUser?.name}
-          onChange={(e) => handleChange("userName", e)}
+          onChange={(e) => handleChange('userName', e)}
           style={styles}
-        />
+        /> 
+        
+
+
 
         <TextField
           label="Enter email"
           variant="standard"
           value={newUser?.email}
-          onChange={(e) => handleChange("email", e)}
+          onChange={(e) => handleChange('email', e)}
         />
-       
-        <br></br>
-        <Button id="addUser" onClick={() => handleClick("CREATE_USERS")}>Add User</Button>
+        <Button onClick={() => handleClick("CREATE_USERS")}>Add User</Button><br></br>
       </form>
-      </div>
-      <div className="table">
+      {users.map((ele) => {
+        return (
+          <li key={ele.id}>
+            {ele.name}
+            {ele.email}
+            <Button onClick={() => handleClick("REMOVE_USERS", ele.id)}>
+              Delete
+            </Button>
 
-      {/* <TableContainer component={Paper}> */}
-        <Table aria-label="simple table">
-          <TableHead>
-            <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell align="right">Email</TableCell>
-              <TableCell align="center">Actions</TableCell>
-     
-            </TableRow>
-          </TableHead>
-          <TableBody>
-            {users.map((ele) => (
-              <TableRow
-                key={ele.name}
-                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-              >
-                <TableCell component="th" scope="row">
-                  {ele.name}
-                </TableCell>
-                <TableCell align="right">{ele.email}</TableCell>
-                <TableCell align="center">
-                  <Button onClick={() => handleClick("REMOVE_USERS", ele.id)}>
-                  <DeleteOutlineIcon/>
-                  </Button><Button onClick={() => handleEdit(ele.id)}><ModeEditIcon/></Button>
-                </TableCell>
-              </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-        </div>
-      {/* </TableContainer> */}
+            <Button onClick={() => handleEdit(ele.id)}>Update</Button>
+          </li>
+        );
+      })}
 
       <Dialog open={show}>
         <DialogContent>
@@ -169,6 +148,8 @@ function App() {
           </Stack>
         </DialogContent>
       </Dialog>
+
+     
     </div>
   );
 }
