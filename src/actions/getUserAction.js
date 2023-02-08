@@ -42,7 +42,7 @@ export const removeUser = (result) => {
   };
 };
 
-export const asyncEditUser = (payload,handleClose) => {
+export const asyncEditUser = (payload, handleClose) => {
   return (dispatch) => {
     axios
       .put(
@@ -51,10 +51,10 @@ export const asyncEditUser = (payload,handleClose) => {
       )
       .then((response) => {
         const result = response.data;
-        dispatch(editUser(result))
-        handleClose()
+        dispatch(editUser(result));
+        handleClose();
       })
-     
+
       .catch((error) => {
         alert(error.message);
       });
@@ -69,23 +69,23 @@ export const editUser = (result) => {
 };
 
 export const asyncCreateUser = (values) => {
-console.log(values)
-  return((dispatch) => {
-      axios.post('https://63650a617b209ece0f558d28.mockapi.io/userinfo', values)
+  console.log(values);
+  return (dispatch) => {
+    axios
+      .post("https://63650a617b209ece0f558d28.mockapi.io/userinfo", values)
       .then((response) => {
-          const result = response.data
-              dispatch(createUser(result))
+        const result = response.data;
+        dispatch(createUser(result));
       })
       .catch((error) => {
-          alert(error.message)
-      })
-  })
-}
+        alert(error.message);
+      });
+  };
+};
 
 export const createUser = (result) => {
-
   return {
-      type : "CREATE_USER",
-      payload : result
-  }
-}
+    type: "CREATE_USER",
+    payload: result,
+  };
+};
