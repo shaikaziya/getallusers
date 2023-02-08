@@ -7,6 +7,7 @@ const userReducer = (state = userInitialState, action) => {
 
     case "REMOVE_USERS":
       return state.filter((ele) => {
+        //After deleting we are returning the data which we have in state
         return ele.id !== action.payload.id;
       });
     case "CREATE_USER": {
